@@ -1,5 +1,6 @@
 // Copyright 2026 NNTU-CS
 #include <chrono>
+#include <cstdint>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -18,8 +19,8 @@ std::vector<char> makeAlphabet(int n) {
     return symbols;
 }
 
-long long factorial(int n) {
-    long long res = 1;
+int64_t factorial(int n) {
+    int64_t res = 1;
     for (int i = 2; i <= n; ++i) res *= i;
     return res;
 }
@@ -52,7 +53,7 @@ int main() {
     const int max_n = 10;
     std::random_device rd;
     std::mt19937 gen(rd());
-    system("mkdir result");
+    system("mkdir -p result");
     std::ofstream csv("result/results.csv");
     csv << "n,getAllPerms,getPerm1,getPerm2\n";
 
@@ -64,23 +65,26 @@ int main() {
         volatile auto all = getAllPerms(local_tree);
         (void)all;
         auto t1 = std::chrono::high_resolution_clock::now();
-        double time_all = std::chrono::duration<double, std::micro>(t1 - t0).count();
+        double time_all =
+            std::chrono::duration<double, std::micro>(t1 - t0).count();
 
-        long long total_perms = factorial(n);
-        std::uniform_int_distribution<long long> dist(1, total_perms);
-        long long num = dist(gen);
+        int64_t total_perms = factorial(n);
+        std::uniform_int_distribution<int64_t> dist(1, total_perms);
+        int64_t num = dist(gen);
 
         t0 = std::chrono::high_resolution_clock::now();
         volatile auto r1 = getPerm1(local_tree, static_cast<int>(num));
         (void)r1;
         t1 = std::chrono::high_resolution_clock::now();
-        double time1 = std::chrono::duration<double, std::micro>(t1 - t0).count();
+        double time1 =
+            std::chrono::duration<double, std::micro>(t1 - t0).count();
 
         t0 = std::chrono::high_resolution_clock::now();
         volatile auto r2 = getPerm2(local_tree, static_cast<int>(num));
         (void)r2;
         t1 = std::chrono::high_resolution_clock::now();
-        double time2 = std::chrono::duration<double, std::micro>(t1 - t0).count();
+        double time2 =
+            std::chrono::duration<double, std::micro>(t1 - t0).count();
 
         csv << n << "," << time_all << "," << time1 << "," << time2 << "\n";
         std::cout << "n=" << n << " getAllPerms=" << time_all
