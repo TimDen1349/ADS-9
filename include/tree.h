@@ -1,32 +1,27 @@
-#ifndef PMTREE_TREE_H_
-#define PMTREE_TREE_H_
+#ifndef INCLUDE_TREE_H_
+#define INCLUDE_TREE_H_
+
 #include <vector>
-
-struct Node {
-	char value;
-	std::vector<Node*> children;
-
-	explicit Node(char v) : value(v) {}
-};
 
 class PMTree {
 public:
-	PMTree();
-	explicit PMTree(const std::vector<char>& elements);
-	~PMTree();
-
-	PMTree(const PMTree&) = delete;
-	PMTree& operator=(const PMTree&) = delete;
-
-	Node* root() const { return root_; }
-	int size() const { return size_; }
+    struct Node {
+        char data;
+        std::vector<Node*> children;
+        explicit Node(char c) : data(c) {}
+    };
+    explicit PMTree(const std::vector<char>& elements);
+    ~PMTree();
+    PMTree(const PMTree&) = delete;
+    PMTree& operator=(const PMTree&) = delete;
+    const Node* root() const { return root_; }
+    int size() const { return size_; }
 
 private:
-	Node* root_;
-	int size_;
-
-	void build(Node* node, const std::vector<char>& remaining);
-	void destroy(Node* node);
+    Node* root_;
+    int size_;
+    void build(Node* node, const std::vector<char>& remaining);
+    void destroy(Node* node);
 };
 
 std::vector<std::vector<char>> getAllPerms(const PMTree& tree);
