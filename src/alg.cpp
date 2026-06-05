@@ -14,38 +14,38 @@ int64_t factorial(int n) {
     return result;
 }
 
-    void collectAll(const PMTree::Node* node, std::vector<char>& current,
-        std::vector<std::vector<char>>& out) {
-        if (node->children.empty()) {
-            out.push_back(current);
-            return;
-        }
-        for (const auto* child : node->children) {
-            current.push_back(child->data);
-            collectAll(child, current, out);
-            current.pop_back();
-        }
+void collectAll(const PMTree::Node* node, std::vector<char>& current,
+    std::vector<std::vector<char>>& out) {
+    if (node->children.empty()) {
+        out.push_back(current);
+        return;
     }
+    for (const auto* child : node->children) {
+        current.push_back(child->data);
+        collectAll(child, current, out);
+        current.pop_back();
+    }
+}
 
-    bool findNth(const PMTree::Node* node, int& counter, int target,
-        std::vector<char>& path, std::vector<char>& result) {
-        if (node->children.empty()) {
-            ++counter;
-            if (counter == target) {
-                result = path;
-                return true;
-            }
-            return false;
-        }
-        for (const auto* child : node->children) {
-            path.push_back(child->data);
-            if (findNth(child, counter, target, path, result)) {
-                return true;
-            }
-            path.pop_back();
+bool findNth(const PMTree::Node* node, int& counter, int target,
+    std::vector<char>& path, std::vector<char>& result) {
+    if (node->children.empty()) {
+        ++counter;
+        if (counter == target) {
+            result = path;
+            return true;
         }
         return false;
     }
+    for (const auto* child : node->children) {
+        path.push_back(child->data);
+        if (findNth(child, counter, target, path, result)) {
+            return true;
+        }
+        path.pop_back();
+    }
+    return false;
+}
 
 }  // namespace
 
