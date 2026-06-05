@@ -53,7 +53,8 @@ int main() {
     const int max_n = 10;
     std::random_device rd;
     std::mt19937 gen(rd());
-    (void)system("mkdir -p result");
+    int sys_ret = system("mkdir -p result");
+    (void)sys_ret;
     std::ofstream csv("result/results.csv");
     csv << "n,getAllPerms,getPerm1,getPerm2\n";
 
