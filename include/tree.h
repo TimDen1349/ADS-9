@@ -4,7 +4,7 @@
 #include <vector>
 
 class PMTree {
-public:
+ public:
     struct Node {
         char data;
         std::vector<Node*> children;
@@ -20,7 +20,7 @@ public:
     const Node* root() const { return root_; }
     int size() const { return size_; }
 
-private:
+ private:
     Node* root_;
     int size_;
 
