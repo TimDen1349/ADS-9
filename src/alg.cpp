@@ -6,13 +6,13 @@
 
 namespace {
 
-    int64_t factorial(int n) {
-        int64_t result = 1;
-        for (int i = 2; i <= n; ++i) {
-            result *= i;
-        }
-        return result;
+int64_t factorial(int n) {
+    int64_t result = 1;
+    for (int i = 2; i <= n; ++i) {
+        result *= i;
     }
+    return result;
+}
 
     void collectAll(const PMTree::Node* node, std::vector<char>& current,
         std::vector<std::vector<char>>& out) {
