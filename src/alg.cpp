@@ -1,8 +1,11 @@
-#include "tree.h"
-#include <algorithm>
+// Copyright 2026 NNTU-CS
 #include <cstdint>
+#include <algorithm>
+#include <vector>
+#include "tree.h"
 
 namespace {
+
     int64_t factorial(int n) {
         int64_t result = 1;
         for (int i = 2; i <= n; ++i) {
@@ -10,7 +13,7 @@ namespace {
         }
         return result;
     }
-    
+
     void collectAll(const PMTree::Node* node, std::vector<char>& current,
         std::vector<std::vector<char>>& out) {
         if (node->children.empty()) {
@@ -44,7 +47,7 @@ namespace {
         return false;
     }
 
-}
+}  // namespace
 
 PMTree::PMTree(const std::vector<char>& elements) : root_(nullptr), size_(0) {
     if (elements.empty()) {
